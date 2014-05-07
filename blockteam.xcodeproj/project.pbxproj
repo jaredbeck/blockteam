@@ -53,7 +53,7 @@
 		7FD74B941919CAB500F9C9B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7FD74B961919CAB500F9C9B4 /* blockteamTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blockteamTests.m; sourceTree = "<group>"; };
 		7FD74BA01919CB1300F9C9B4 /* BTGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTGLView.h; path = blockteam/BTGLView.h; sourceTree = "<group>"; };
-		7FD74BA11919CB1300F9C9B4 /* BTGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTGLView.m; path = blockteam/BTGLView.m; sourceTree = "<group>"; };
+		7FD74BA11919CB1300F9C9B4 /* BTGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTGLView.m; path = blockteam/BTGLView.m; sourceTree = "<group>"; usesTabs = 1; };
 		7FD74BA31919CEAE00F9C9B4 /* BTPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTPoint.h; path = blockteam/BTPoint.h; sourceTree = "<group>"; };
 		7FD74BA41919CEAE00F9C9B4 /* BTPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTPoint.m; path = blockteam/BTPoint.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
