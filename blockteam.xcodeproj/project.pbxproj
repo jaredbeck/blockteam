@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F445CA21919E567005DF535 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F445CA11919E567005DF535 /* OpenGL.framework */; };
 		7FD74B6D1919CAB500F9C9B4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD74B6C1919CAB500F9C9B4 /* Cocoa.framework */; };
 		7FD74B771919CAB500F9C9B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7FD74B751919CAB500F9C9B4 /* InfoPlist.strings */; };
 		7FD74B791919CAB500F9C9B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD74B781919CAB500F9C9B4 /* main.m */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F445CA11919E567005DF535 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		7FD74B691919CAB500F9C9B4 /* blockteam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = blockteam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FD74B6C1919CAB500F9C9B4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		7FD74B6F1919CAB500F9C9B4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F445CA21919E567005DF535 /* OpenGL.framework in Frameworks */,
 				7FD74B6D1919CAB500F9C9B4 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,6 +108,7 @@
 		7FD74B6B1919CAB500F9C9B4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7F445CA11919E567005DF535 /* OpenGL.framework */,
 				7FD74B6C1919CAB500F9C9B4 /* Cocoa.framework */,
 				7FD74B8B1919CAB500F9C9B4 /* XCTest.framework */,
 				7FD74B6E1919CAB500F9C9B4 /* Other Frameworks */,
@@ -479,6 +483,7 @@
 				7FD74B9C1919CAB500F9C9B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7FD74B9D1919CAB500F9C9B4 /* Build configuration list for PBXNativeTarget "blockteamTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +492,7 @@
 				7FD74B9F1919CAB500F9C9B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
