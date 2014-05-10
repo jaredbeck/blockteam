@@ -15,5 +15,7 @@
 }
 
 - (void) drawRect: (NSRect) bounds;
+- (void) keyUp: (NSEvent*) event;
+- (void) keyDown: (NSEvent*) event;
 
 @end

@@ -13,6 +13,8 @@
 
 @implementation BTGLView
 
+- (BOOL) acceptsFirstResponder { return YES; }
+
 -(void) gold	{ glColor3f(1.0f, 0.85f, 0.35f); }
 -(void) red		{ glColor3f(1.0f, 0.0f, 0.0f); }
 -(void) green	{ glColor3f(0.0f, 1.0f, 0.0f); }
@@ -93,6 +95,26 @@
 	BTPoint *p = [[BTPoint alloc] initWithX: -0.5f Y: 0.0f Z: 0.0f];
 	[self drawCube: p Length: 1.0f];
 	glFlush();
+}
+
+-(void)keyUp:(NSEvent*)event
+{
+	NSLog(@"Key released: %@", event);
+}
+
+-(void)keyDown:(NSEvent*)event
+{
+	switch( [event keyCode] ) {
+		case 126:	// up arrow
+		case 125:	// down arrow
+		case 124:	// right arrow
+		case 123:	// left arrow
+			NSLog(@"Arrow key pressed!");
+		break;
+		default:
+			NSLog(@"Key pressed: %@", event);
+		break;
+	}
 }
 
 @end
