@@ -11,7 +11,10 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 
-@implementation BTGLView
+@implementation BTGLView {
+	float cameraRadians;
+	BTPoint* cameraLoc;
+}
 
 - (BOOL) acceptsFirstResponder { return YES; }
 
@@ -84,36 +87,54 @@
 	glMatrixMode (GL_MODELVIEW);
 }
 
+/* Seems like maybe there's no `init`.
+ (http://www.idevgames.com/forums/thread-7621.html)
+ Who knows when or how often drawRect gets called..
+ */
 -(void) drawRect: (NSRect) bounds
 {
+	NSLog(@"drawRect");
+	if (cameraLoc == nil) {
+		cameraLoc = [[BTPoint new] initWithX: 0.0 Y: 0.0 Z: 3.0];
+	}
 	glClearColor(0, 0, 0, 0);
 	glShadeModel(GL_FLAT);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity(); /* clear the matrix */
-	[self placeCamera: [[BTPoint new] initWithX: 0.0 Y: 0.0 Z: 3.0]];
+	[self placeCamera: cameraLoc];
 	[self drawTriangle];
 	BTPoint *p = [[BTPoint alloc] initWithX: -0.5f Y: 0.0f Z: 0.0f];
 	[self drawCube: p Length: 1.0f];
 	glFlush();
 }
 
+- (void) rotateCameraToRadians: (float) radians Radius:(float) radius
+{
+	cameraLoc.x = radius * cosf(radians);
+	cameraLoc.z = radius * sinf(radians);
+	[self setNeedsDisplay: YES];
+}
+
 -(void)keyUp:(NSEvent*)event
 {
-	NSLog(@"Key released: %@", event);
+	NSLog(@"Key released");
 }
 
 -(void)keyDown:(NSEvent*)event
 {
-	switch( [event keyCode] ) {
-		case 126:	// up arrow
-		case 125:	// down arrow
-		case 124:	// right arrow
-		case 123:	// left arrow
-			NSLog(@"Arrow key pressed!");
-		break;
-		default:
-			NSLog(@"Key pressed: %@", event);
-		break;
+	float cameraRadius = 3.0;
+	float cameraSpeed = 0.1; // radians
+	NSString* chars = [event characters];
+	if ([chars isEqualToString: @"a"]) {
+		NSLog(@"Move camera clockwise");
+		cameraRadians -= cameraSpeed;
+		if (cameraRadians < 0.0) { cameraRadians += 2 * M_PI; }
+		[self rotateCameraToRadians: cameraRadians Radius: cameraRadius];
+	} else if ([chars isEqualToString: @"d"]) {
+		NSLog(@"Move camera counter-clockwise");
+		cameraRadians += cameraSpeed;
+		if (cameraRadians > 2 * M_PI) { cameraRadians -= 2 * M_PI; }
+		[self rotateCameraToRadians: cameraRadians Radius: cameraRadius];
 	}
 }
 
