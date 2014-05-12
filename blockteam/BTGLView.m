@@ -10,6 +10,7 @@
 
 #import "BTColor.h"
 #import "BTLog.h"
+#import "BTPlane.h"
 #import "BTPoint.h"
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -73,9 +74,10 @@
 
 -(void) placeCamera: (BTPoint*) loc
 {
+	float cameraElevation = 2.0;
 	/* The arguments for `gluLookAt` indicate where the camera (or
 	eye position) is placed, where it is aimed, and which way is up. */
-	gluLookAt (loc.x, loc.y, loc.z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	gluLookAt (loc.x, loc.y + cameraElevation, loc.z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glViewport (0, 0, (GLsizei) 400, (GLsizei) 400);
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
@@ -98,6 +100,7 @@
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity(); /* clear the matrix */
 	[self placeCamera: cameraLoc];
+	[[[BTPlane new] initWithY: 0.0] draw];
 	[self drawTriangle];
 	BTPoint *p = [[BTPoint alloc] initWithX: -0.5f Y: 0.0f Z: 0.0f];
 	[self drawCube: p Length: 1.0f];

@@ -1,5 +1,5 @@
 //
-//  BTColor.h
+//  BTPlane.h
 //  blockteam
 //
 //  Created by Jared Beck on 5/12/14.
@@ -8,14 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BTColor : NSObject
+@interface BTPlane : NSObject
 
-+ (void) gold;
-+ (void) red;
-+ (void) green;
-+ (void) grey;
-+ (void) blue;
-+ (void) yellow;
-+ (void) white;
+@property float y;
+
+- (id) initWithY: (float) y;
+- (void) draw;
 
 @end
