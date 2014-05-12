@@ -87,13 +87,18 @@
 	glMatrixMode (GL_MODELVIEW);
 }
 
+- (void) logNSRect: (NSRect) rect
+{
+	NSLog(@"%@", CGRectCreateDictionaryRepresentation(rect));
+}
+
 /* Seems like maybe there's no `init`.
  (http://www.idevgames.com/forums/thread-7621.html)
  Who knows when or how often drawRect gets called..
  */
 -(void) drawRect: (NSRect) bounds
 {
-	NSLog(@"drawRect");
+	[self logNSRect: bounds];
 	if (cameraLoc == nil) {
 		cameraLoc = [[BTPoint new] initWithX: 0.0 Y: 0.0 Z: 3.0];
 	}
