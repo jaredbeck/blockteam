@@ -7,6 +7,8 @@
 //
 
 #import "BTGLView.h"
+
+#import "BTColor.h"
 #import "BTLog.h"
 #import "BTPoint.h"
 #include <OpenGL/gl.h>
@@ -19,16 +21,9 @@
 
 - (BOOL) acceptsFirstResponder { return YES; }
 
--(void) gold	{ glColor3f(1.0f, 0.85f, 0.35f); }
--(void) red		{ glColor3f(1.0f, 0.0f, 0.0f); }
--(void) green	{ glColor3f(0.0f, 1.0f, 0.0f); }
--(void) blue	{ glColor3f(0.0f, 0.0f, 1.0f); }
--(void) yellow	{ glColor3f(1.0f, 1.0f, 0.0f); }
--(void) white	{ glColor3f(0.0f, 0.0f, 0.0f); }
-
 -(void) drawTriangle
 {
-	[self gold];
+	[BTColor gold];
 	glBegin(GL_TRIANGLES);
 	{
 		glVertex3f(  0.0,  0.6, 0.0);
@@ -46,7 +41,7 @@
 	// sides of cube
 	glBegin(GL_QUAD_STRIP);
 	{
-		[self red];
+		[BTColor red];
 		glVertex3f( p.x + r, p.y + r, p.z + r);
 		glVertex3f( p.x + r, p.y, p.z + r);
 
@@ -67,7 +62,7 @@
 	// bottom of cube
 	glBegin(GL_QUADS);
 	{
-		[self red];
+		[BTColor red];
 		glVertex3f(p.x, p.y, p.z);
 		glVertex3f(p.x + r, p.y, p.z);
 		glVertex3f(p.x + r, p.y, p.z + r);

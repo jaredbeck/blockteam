@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7F445CA21919E567005DF535 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F445CA11919E567005DF535 /* OpenGL.framework */; };
 		7FB52414192136AB00DE7AF6 /* BTLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB52413192136AB00DE7AF6 /* BTLog.m */; };
+		7FB52417192138CC00DE7AF6 /* BTColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB52416192138CC00DE7AF6 /* BTColor.m */; };
 		7FD74B6D1919CAB500F9C9B4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FD74B6C1919CAB500F9C9B4 /* Cocoa.framework */; };
 		7FD74B771919CAB500F9C9B4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7FD74B751919CAB500F9C9B4 /* InfoPlist.strings */; };
 		7FD74B791919CAB500F9C9B4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD74B781919CAB500F9C9B4 /* main.m */; };
@@ -38,6 +39,8 @@
 		7F445CA11919E567005DF535 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		7FB52412192136AB00DE7AF6 /* BTLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTLog.h; path = blockteam/BTLog.h; sourceTree = "<group>"; };
 		7FB52413192136AB00DE7AF6 /* BTLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTLog.m; path = blockteam/BTLog.m; sourceTree = "<group>"; };
+		7FB52415192138CC00DE7AF6 /* BTColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTColor.h; path = blockteam/BTColor.h; sourceTree = "<group>"; };
+		7FB52416192138CC00DE7AF6 /* BTColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTColor.m; path = blockteam/BTColor.m; sourceTree = "<group>"; };
 		7FD74B691919CAB500F9C9B4 /* blockteam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = blockteam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FD74B6C1919CAB500F9C9B4 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		7FD74B6F1919CAB500F9C9B4 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -88,6 +91,8 @@
 		7FD74B601919CAB500F9C9B4 = {
 			isa = PBXGroup;
 			children = (
+				7FB52415192138CC00DE7AF6 /* BTColor.h */,
+				7FB52416192138CC00DE7AF6 /* BTColor.m */,
 				7FB52412192136AB00DE7AF6 /* BTLog.h */,
 				7FB52413192136AB00DE7AF6 /* BTLog.m */,
 				7FD74BA31919CEAE00F9C9B4 /* BTPoint.h */,
@@ -277,6 +282,7 @@
 				7FD74B801919CAB500F9C9B4 /* BTAppDelegate.m in Sources */,
 				7FD74BA21919CB1300F9C9B4 /* BTGLView.m in Sources */,
 				7FD74B791919CAB500F9C9B4 /* main.m in Sources */,
+				7FB52417192138CC00DE7AF6 /* BTColor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
