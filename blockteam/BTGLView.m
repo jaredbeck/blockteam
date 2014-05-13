@@ -17,7 +17,8 @@
 #include <OpenGL/glu.h>
 
 @implementation BTGLView {
-	float cameraRadians; // initial value of 0.0 is intentional
+	float cameraRadians;
+	BOOL isInited;
 }
 
 static float const kCameraElevation = 2.0;
@@ -29,9 +30,15 @@ static float const kCameraSpeed = 0.1; // radians
 - (BOOL) acceptsFirstResponder { return YES; }
 
 - (void) drawRect: (NSRect) bounds {
+	if (!isInited) {
+		cameraRadians = 1.5 * M_PI;
+		isInited = YES;
+	}
 	glClearColor(0, 0, 0, 0);
 	glShadeModel(GL_FLAT);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glEnable(GL_CULL_FACE); // hide polygons that face away from the camera
+	glEnable(GL_DEPTH_TEST); // clip ploygons in the back of the scene
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	[self projection];
 	[self modelview];
@@ -65,8 +72,8 @@ static float const kCameraSpeed = 0.1; // radians
 	glBegin(GL_TRIANGLES);
 	{
 		glVertex3f( 0.0, 1.0, z);
-		glVertex3f(-0.5, 0.0, z);
 		glVertex3f( 0.5, 0.0, z);
+		glVertex3f(-0.5, 0.0, z);
 	}
 	glEnd();
 }
@@ -78,7 +85,7 @@ static float const kCameraSpeed = 0.1; // radians
 }
 
 - (void) modelview {
-	glMatrixMode (GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW);
 	[[[BTPlane alloc] initWithY: 0.0] draw];
 	[self drawCubes];
 	[self drawTriangle];

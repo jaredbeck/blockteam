@@ -30,42 +30,43 @@ static float const kLength = 1.0;
     const float r = kLength / 2;
     BTPoint* p = self.center;
 
-    // sides of cube
     glBegin(GL_QUADS);
     {
-        [BTColor red];
+        [BTColor greyLight];
 
-        // Fr.  011 111 101 001
+        // Fr.  011 001 101 111 counter-clockwise
         glVertex3f(p.x - r, p.y + r, p.z + r);
-        glVertex3f(p.x + r, p.y + r, p.z + r);
-        glVertex3f(p.x + r, p.y - r, p.z + r);
         glVertex3f(p.x - r, p.y - r, p.z + r);
+        glVertex3f(p.x + r, p.y - r, p.z + r);
+        glVertex3f(p.x + r, p.y + r, p.z + r);
 
-        // Bk.  010 110 100 000
+        // Bk.  010 110 100 000 clockwise
         glVertex3f(p.x - r, p.y + r, p.z - r);
         glVertex3f(p.x + r, p.y + r, p.z - r);
         glVertex3f(p.x + r, p.y - r, p.z - r);
         glVertex3f(p.x - r, p.y - r, p.z - r);
 
-        // Rgt  111 110 100 101
+        // Rgt  111 101 100 110 counter-clockwise
         glVertex3f(p.x + r, p.y + r, p.z + r);
-        glVertex3f(p.x + r, p.y + r, p.z - r);
-        glVertex3f(p.x + r, p.y - r, p.z - r);
         glVertex3f(p.x + r, p.y - r, p.z + r);
-
-        // Top  010 110 111 011
-        glVertex3f(p.x - r, p.y + r, p.z - r);
+        glVertex3f(p.x + r, p.y - r, p.z - r);
         glVertex3f(p.x + r, p.y + r, p.z - r);
-        glVertex3f(p.x + r, p.y + r, p.z + r);
-        glVertex3f(p.x - r, p.y + r, p.z + r);
 
-        // Lft  011 010 000 001
+        // Top  010 011 111 110 counter-clockwise
+        glVertex3f(p.x - r, p.y + r, p.z - r);
+        glVertex3f(p.x - r, p.y + r, p.z + r);
+        glVertex3f(p.x + r, p.y + r, p.z + r);
+        glVertex3f(p.x + r, p.y + r, p.z - r);
+
+        // Lft  011 010 000 001 clockwise
         glVertex3f(p.x - r, p.y + r, p.z + r);
         glVertex3f(p.x - r, p.y + r, p.z - r);
         glVertex3f(p.x - r, p.y - r, p.z - r);
         glVertex3f(p.x - r, p.y - r, p.z + r);
 
-        // Bot  000 100 101 001
+        // Bot  000 100 101 001 clockwise
+        /* Draw the bottom, even though it may always face away from the
+        camera, depending on the design of the game, TBD. */
         glVertex3f(p.x - r, p.y - r, p.z - r);
         glVertex3f(p.x + r, p.y - r, p.z - r);
         glVertex3f(p.x + r, p.y - r, p.z + r);

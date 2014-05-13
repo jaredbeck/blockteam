@@ -14,6 +14,8 @@
 + (void) red;
 + (void) green;
 + (void) grey;
++ (void) greyDark;
++ (void) greyLight;
 + (void) blue;
 + (void) yellow;
 + (void) white;
