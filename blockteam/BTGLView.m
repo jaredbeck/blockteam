@@ -9,6 +9,7 @@
 #import "BTGLView.h"
 
 #import "BTColor.h"
+#import "BTCube.h"
 #import "BTLog.h"
 #import "BTPlane.h"
 #import "BTPoint.h"
@@ -16,14 +17,16 @@
 #include <OpenGL/glu.h>
 
 @implementation BTGLView {
-	float cameraRadians;
-	BTPoint* cameraLoc;
+	float cameraRadians; // initial value of 0.0 is intentional
 }
+
+static float const kCameraElevation = 2.0;
+static float const kCameraRadius = 3.0;
+static float const kCameraSpeed = 0.1; // radians
 
 - (BOOL) acceptsFirstResponder { return YES; }
 
--(void) drawTriangle
-{
+-(void) drawTriangle {
 	[BTColor gold];
 	glBegin(GL_TRIANGLES);
 	{
@@ -34,50 +37,17 @@
 	glEnd();
 }
 
--(void) drawCube: (BTPoint*) p Length: (float) l
-{
-	NSLog(@"drawCube((%f, %f, %f), %f)", p.x, p.y, p.z, l);
-	float r = l / 2; // length / 2 is sort of the "radius" of the cube ..
-
-	// sides of cube
-	glBegin(GL_QUAD_STRIP);
-	{
-		[BTColor red];
-		glVertex3f( p.x + r, p.y + r, p.z + r);
-		glVertex3f( p.x + r, p.y, p.z + r);
-
-		glVertex3f( p.x + r, p.y + r, p.z);
-		glVertex3f( p.x + r, p.y, p.z);
-
-		glVertex3f( p.x, p.y + r, p.z);
-		glVertex3f( p.x, p.y, p.z);
-
-		glVertex3f( p.x, p.y + r, p.z + r);
-		glVertex3f( p.x, p.y, p.z + r);
-
-		glVertex3f( p.x + r, p.y + r, p.z + r);
-		glVertex3f( p.x + r, p.y, p.z);
-	}
-	glEnd();
-	
-	// bottom of cube
-	glBegin(GL_QUADS);
-	{
-		[BTColor red];
-		glVertex3f(p.x, p.y, p.z);
-		glVertex3f(p.x + r, p.y, p.z);
-		glVertex3f(p.x + r, p.y, p.z + r);
-		glVertex3f(p.x, p.y, p.z + r);
-	}
-	glEnd();
+- (BTPoint*) getCameraPosition {
+	const float x = kCameraRadius * cosf(cameraRadians);
+	const float z = kCameraRadius * sinf(cameraRadians);
+	return [[BTPoint alloc] initWithX: x Y: kCameraElevation Z: z];
 }
 
--(void) placeCamera: (BTPoint*) loc
-{
-	float cameraElevation = 2.0;
+-(void) placeCamera {
+	BTPoint* loc = [self getCameraPosition];
 	/* The arguments for `gluLookAt` indicate where the camera (or
 	eye position) is placed, where it is aimed, and which way is up. */
-	gluLookAt (loc.x, loc.y + cameraElevation, loc.z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	gluLookAt (loc.x, loc.y, loc.z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glViewport (0, 0, (GLsizei) 400, (GLsizei) 400);
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
@@ -85,55 +55,50 @@
 	glMatrixMode (GL_MODELVIEW);
 }
 
+- (void) drawCubes {
+	BTPoint* center = [[BTPoint alloc] initWithX: -0.5f Y: 0.0f Z: 0.0f];
+	BTCube* cube = [[BTCube alloc] initWithCenter: center];
+	[cube draw];
+}
+
 /* Seems like maybe there's no `init`.
  (http://www.idevgames.com/forums/thread-7621.html)
  Who knows when or how often drawRect gets called..
  */
--(void) drawRect: (NSRect) bounds
-{
-	[BTLog logNSRect: bounds];
-	if (cameraLoc == nil) {
-		cameraLoc = [[BTPoint new] initWithX: 0.0 Y: 0.0 Z: 3.0];
-	}
+-(void) drawRect: (NSRect) bounds {
 	glClearColor(0, 0, 0, 0);
 	glShadeModel(GL_FLAT);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity(); /* clear the matrix */
-	[self placeCamera: cameraLoc];
-	[[[BTPlane new] initWithY: 0.0] draw];
+	[self placeCamera];
+	[[[BTPlane alloc] initWithY: 0.0] draw];
 	[self drawTriangle];
-	BTPoint *p = [[BTPoint alloc] initWithX: -0.5f Y: 0.0f Z: 0.0f];
-	[self drawCube: p Length: 1.0f];
+	[self drawCubes];
 	glFlush();
 }
 
-- (void) rotateCameraToRadians: (float) radians Radius:(float) radius
-{
-	cameraLoc.x = radius * cosf(radians);
-	cameraLoc.z = radius * sinf(radians);
+- (void) moveCameraClockwise {
+	cameraRadians -= kCameraSpeed;
+	if (cameraRadians < 0.0) { cameraRadians += 2 * M_PI; }
 	[self setNeedsDisplay: YES];
 }
 
--(void)keyUp:(NSEvent*)event
-{
-	NSLog(@"Key released");
+- (void) moveCameraCounterClockwise {
+	cameraRadians += kCameraSpeed;
+	if (cameraRadians > 2 * M_PI) { cameraRadians -= 2 * M_PI; }
+	[self setNeedsDisplay: YES];
 }
 
--(void)keyDown:(NSEvent*)event
-{
-	float cameraRadius = 3.0;
-	float cameraSpeed = 0.1; // radians
+-(void)keyUp:(NSEvent*)event {
+	// noop. placeholder.
+}
+
+-(void)keyDown:(NSEvent*)event {
 	NSString* chars = [event characters];
 	if ([chars isEqualToString: @"a"]) {
-		NSLog(@"Move camera clockwise");
-		cameraRadians -= cameraSpeed;
-		if (cameraRadians < 0.0) { cameraRadians += 2 * M_PI; }
-		[self rotateCameraToRadians: cameraRadians Radius: cameraRadius];
+		[self moveCameraClockwise];
 	} else if ([chars isEqualToString: @"d"]) {
-		NSLog(@"Move camera counter-clockwise");
-		cameraRadians += cameraSpeed;
-		if (cameraRadians > 2 * M_PI) { cameraRadians -= 2 * M_PI; }
-		[self rotateCameraToRadians: cameraRadians Radius: cameraRadius];
+		[self moveCameraCounterClockwise];
 	}
 }
 
