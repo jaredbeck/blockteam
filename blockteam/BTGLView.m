@@ -18,7 +18,6 @@
 
 @implementation BTGLView {
 	float cameraRadians;
-	BOOL isInited;
 }
 
 static float const kCameraElevation = 2.0;
@@ -30,14 +29,6 @@ static float const kCameraSpeed = 0.1; // radians
 - (BOOL) acceptsFirstResponder { return YES; }
 
 - (void) drawRect: (NSRect) bounds {
-	if (!isInited) {
-		cameraRadians = 1.5 * M_PI;
-		isInited = YES;
-	}
-	glClearColor(0, 0, 0, 0);
-	glShadeModel(GL_FLAT);
-	glEnable(GL_CULL_FACE); // hide polygons that face away from the camera
-	glEnable(GL_DEPTH_TEST); // clip ploygons in the back of the scene
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	[self projection];
@@ -56,6 +47,14 @@ static float const kCameraSpeed = 0.1; // radians
 	} else if ([chars isEqualToString: @"d"]) {
 		[self moveCameraCounterClockwise];
 	}
+}
+
+- (void) prepareOpenGL {
+	cameraRadians = 1.5 * M_PI;
+	glClearColor(0, 0, 0, 0);
+	glShadeModel(GL_FLAT);
+	glEnable(GL_CULL_FACE); // hide polygons that face away from the camera
+	glEnable(GL_DEPTH_TEST); // clip ploygons in the back of the scene
 }
 
 /* Private */
