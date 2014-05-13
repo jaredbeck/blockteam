@@ -13,6 +13,8 @@
 
 @implementation BTPlane
 
+static float const kLength = 9.0;
+
 - (id) initWithY: (float) y
 {
     self = [super init];
@@ -22,14 +24,14 @@
 
 - (void) draw
 {
-    float size = 2.0;
+    const float r = kLength / 2;
     glBegin(GL_QUADS);
     {
         [BTColor grey];
-        glVertex3f(0.0 - size, self.y, 0.0 + size);
-        glVertex3f(0.0 + size, self.y, 0.0 + size);
-        glVertex3f(0.0 + size, self.y, 0.0 - size);
-        glVertex3f(0.0 - size, self.y, 0.0 - size);
+        glVertex3f(0.0 - r, self.y, 0.0 + r);
+        glVertex3f(0.0 + r, self.y, 0.0 + r);
+        glVertex3f(0.0 + r, self.y, 0.0 - r);
+        glVertex3f(0.0 - r, self.y, 0.0 - r);
     }
     glEnd();
 }
