@@ -21,39 +21,55 @@ static float const kLength = 1.0;
     return self;
 }
 
+/* "did you want to use lighting? If so, you're better off with GL_QUADS 
+ or GL_TRIANGLES; stripping/fanning uses the same computed vertex colour 
+ for each usage of a vertex by a triangle, and for a cube that's going to 
+ look really bad." (http://bit.ly/1nBJZxN) 
+ */
 - (void) draw {
     const float r = kLength / 2;
     BTPoint* p = self.center;
 
     // sides of cube
-    glBegin(GL_QUAD_STRIP);
-    {
-        [BTColor red];
-        glVertex3f( p.x + r, p.y + r, p.z + r);
-        glVertex3f( p.x + r, p.y, p.z + r);
-        
-        glVertex3f( p.x + r, p.y + r, p.z);
-        glVertex3f( p.x + r, p.y, p.z);
-        
-        glVertex3f( p.x, p.y + r, p.z);
-        glVertex3f( p.x, p.y, p.z);
-        
-        glVertex3f( p.x, p.y + r, p.z + r);
-        glVertex3f( p.x, p.y, p.z + r);
-        
-        glVertex3f( p.x + r, p.y + r, p.z + r);
-        glVertex3f( p.x + r, p.y, p.z);
-    }
-    glEnd();
-    
-    // bottom of cube
     glBegin(GL_QUADS);
     {
         [BTColor red];
-        glVertex3f(p.x, p.y, p.z);
-        glVertex3f(p.x + r, p.y, p.z);
-        glVertex3f(p.x + r, p.y, p.z + r);
-        glVertex3f(p.x, p.y, p.z + r);
+
+        // Fr.  011 111 101 001
+        glVertex3f(p.x - r, p.y + r, p.z + r);
+        glVertex3f(p.x + r, p.y + r, p.z + r);
+        glVertex3f(p.x + r, p.y - r, p.z + r);
+        glVertex3f(p.x - r, p.y - r, p.z + r);
+
+        // Bk.  010 110 100 000
+        glVertex3f(p.x - r, p.y + r, p.z - r);
+        glVertex3f(p.x + r, p.y + r, p.z - r);
+        glVertex3f(p.x + r, p.y - r, p.z - r);
+        glVertex3f(p.x - r, p.y - r, p.z - r);
+
+        // Rgt  111 110 100 101
+        glVertex3f(p.x + r, p.y + r, p.z + r);
+        glVertex3f(p.x + r, p.y + r, p.z - r);
+        glVertex3f(p.x + r, p.y - r, p.z - r);
+        glVertex3f(p.x + r, p.y - r, p.z + r);
+
+        // Top  010 110 111 011
+        glVertex3f(p.x - r, p.y + r, p.z - r);
+        glVertex3f(p.x + r, p.y + r, p.z - r);
+        glVertex3f(p.x + r, p.y + r, p.z + r);
+        glVertex3f(p.x - r, p.y + r, p.z + r);
+
+        // Lft  011 010 000 001
+        glVertex3f(p.x - r, p.y + r, p.z + r);
+        glVertex3f(p.x - r, p.y + r, p.z - r);
+        glVertex3f(p.x - r, p.y - r, p.z - r);
+        glVertex3f(p.x - r, p.y - r, p.z + r);
+
+        // Bot  000 100 101 001
+        glVertex3f(p.x - r, p.y - r, p.z - r);
+        glVertex3f(p.x + r, p.y - r, p.z - r);
+        glVertex3f(p.x + r, p.y - r, p.z + r);
+        glVertex3f(p.x - r, p.y - r, p.z + r);
     }
     glEnd();
 }

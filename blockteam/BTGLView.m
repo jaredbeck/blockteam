@@ -54,18 +54,19 @@ static float const kCameraSpeed = 0.1; // radians
 /* Private */
 
 - (void) drawCubes {
-	BTPoint* center = [[BTPoint alloc] initWithX: -0.5f Y: 0.0f Z: 0.0f];
+	BTPoint* center = [[BTPoint alloc] initWithX: 0.0 Y: 0.0 Z: 0.0];
 	BTCube* cube = [[BTCube alloc] initWithCenter: center];
 	[cube draw];
 }
 
 - (void) drawTriangle {
+	const float z = 1.1;
 	[BTColor gold];
 	glBegin(GL_TRIANGLES);
 	{
-		glVertex3f( 0.0, 1.0, 0.0);
-		glVertex3f(-0.5, 0.0, 0.0);
-		glVertex3f( 0.5, 0.0, 0.0);
+		glVertex3f( 0.0, 1.0, z);
+		glVertex3f(-0.5, 0.0, z);
+		glVertex3f( 0.5, 0.0, z);
 	}
 	glEnd();
 }
@@ -79,8 +80,8 @@ static float const kCameraSpeed = 0.1; // radians
 - (void) modelview {
 	glMatrixMode (GL_MODELVIEW);
 	[[[BTPlane alloc] initWithY: 0.0] draw];
-	[self drawTriangle];
 	[self drawCubes];
+	[self drawTriangle];
 }
 
 - (void) moveCameraClockwise {
