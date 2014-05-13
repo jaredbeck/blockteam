@@ -61,7 +61,7 @@ static float const kCameraSpeed = 0.1; // radians
 /* Private */
 
 - (void) drawCubes {
-	BTPoint* center = [[BTPoint alloc] initWithX: 0.0 Y: 0.0 Z: 0.0];
+	BTPoint* center = [[BTPoint alloc] initWithX: 0.0 Y: 0.5 Z: 0.0];
 	BTCube* cube = [[BTCube alloc] initWithCenter: center];
 	[cube draw];
 }
