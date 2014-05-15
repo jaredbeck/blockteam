@@ -25,6 +25,7 @@
 		7FD74B971919CAB500F9C9B4 /* blockteamTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD74B961919CAB500F9C9B4 /* blockteamTests.m */; };
 		7FD74BA21919CB1300F9C9B4 /* BTGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD74BA11919CB1300F9C9B4 /* BTGLView.m */; };
 		7FD74BA51919CEAE00F9C9B4 /* BTPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD74BA41919CEAE00F9C9B4 /* BTPoint.m */; };
+		7FDC7B8D1925878700F68290 /* BTMaterial.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDC7B8C1925878700F68290 /* BTMaterial.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,8 @@
 		7FD74BA11919CB1300F9C9B4 /* BTGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTGLView.m; path = blockteam/BTGLView.m; sourceTree = "<group>"; usesTabs = 1; };
 		7FD74BA31919CEAE00F9C9B4 /* BTPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTPoint.h; path = blockteam/BTPoint.h; sourceTree = "<group>"; };
 		7FD74BA41919CEAE00F9C9B4 /* BTPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTPoint.m; path = blockteam/BTPoint.m; sourceTree = "<group>"; };
+		7FDC7B8B1925878700F68290 /* BTMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTMaterial.h; path = blockteam/BTMaterial.h; sourceTree = "<group>"; };
+		7FDC7B8C1925878700F68290 /* BTMaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTMaterial.m; path = blockteam/BTMaterial.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +100,8 @@
 		7FD74B601919CAB500F9C9B4 = {
 			isa = PBXGroup;
 			children = (
+				7FDC7B8B1925878700F68290 /* BTMaterial.h */,
+				7FDC7B8C1925878700F68290 /* BTMaterial.m */,
 				7F1389AD192183AD00B21622 /* BTCube.h */,
 				7F1389AE192183AD00B21622 /* BTCube.m */,
 				7FB5241819213B0700DE7AF6 /* BTPlane.h */,
@@ -295,6 +300,7 @@
 				7FD74BA21919CB1300F9C9B4 /* BTGLView.m in Sources */,
 				7FD74B791919CAB500F9C9B4 /* main.m in Sources */,
 				7FB52417192138CC00DE7AF6 /* BTColor.m in Sources */,
+				7FDC7B8D1925878700F68290 /* BTMaterial.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

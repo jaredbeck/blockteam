@@ -8,7 +8,7 @@
 
 #import "BTCube.h"
 
-#import "BTColor.h"
+#import "BTMaterial.h"
 #import <OpenGL/gl.h>
 
 @implementation BTCube
@@ -30,9 +30,10 @@ static float const kLength = 1.0;
     const float r = kLength / 2;
     BTPoint* p = self.center;
 
+    [BTMaterial red];
+
     glBegin(GL_QUADS);
     {
-        [BTColor greyLight];
 
         // Fr.  011 001 101 111 counter-clockwise
         glVertex3f(p.x - r, p.y + r, p.z + r);

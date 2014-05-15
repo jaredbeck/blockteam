@@ -8,9 +8,9 @@
 
 #import "BTGLView.h"
 
-#import "BTColor.h"
 #import "BTCube.h"
 #import "BTLog.h"
+#import "BTMaterial.h"
 #import "BTPlane.h"
 #import "BTPoint.h"
 #include <OpenGL/gl.h>
@@ -52,7 +52,7 @@ static float const kCameraSpeed = 0.1; // radians
 - (void) prepareOpenGL {
 	cameraRadians = 1.5 * M_PI;
 	glClearColor(0, 0, 0, 0);
-	glShadeModel(GL_FLAT);
+	glShadeModel(GL_SMOOTH);
 	glEnable(GL_CULL_FACE); // hide polygons that face away from the camera
 	glEnable(GL_DEPTH_TEST); // clip ploygons in the back of the scene
 }
@@ -67,7 +67,7 @@ static float const kCameraSpeed = 0.1; // radians
 
 - (void) drawTriangle {
 	const float z = 1.1;
-	[BTColor gold];
+	[BTMaterial yellow];
 	glBegin(GL_TRIANGLES);
 	{
 		glVertex3f( 0.0, 1.0, z);
@@ -109,6 +109,14 @@ static float const kCameraSpeed = 0.1; // radians
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+	GLfloat LightAmbient[]= { 0.5f, 0.5f, 0.5f, 1.0f };
+	glLightfv(GL_LIGHT1, GL_AMBIENT, LightAmbient);
+	GLfloat LightDiffuse[]= { 1.0f, 1.0f, 1.0f, 1.0f };
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, LightDiffuse);
+	GLfloat LightPosition[]= { 0.0f, 2.0f, 2.0f, 1.0f };
+	glLightfv(GL_LIGHT1, GL_POSITION, LightPosition);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHTING);
 }
 
 @end

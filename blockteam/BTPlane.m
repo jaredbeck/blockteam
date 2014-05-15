@@ -7,8 +7,7 @@
 //
 
 #import "BTPlane.h"
-
-#import "BTColor.h"
+#import "BTMaterial.h"
 #include <OpenGL/gl.h>
 
 @implementation BTPlane
@@ -25,9 +24,11 @@ static float const kLength = 9.0;
 - (void) draw
 {
     const float r = kLength / 2;
+
+    [BTMaterial grey];
+
     glBegin(GL_QUADS);
     {
-        [BTColor grey];
         glVertex3f(0.0 - r, self.y, 0.0 + r);
         glVertex3f(0.0 + r, self.y, 0.0 + r);
         glVertex3f(0.0 + r, self.y, 0.0 - r);
