@@ -56,6 +56,8 @@ static float const kCameraSpeed = 0.1; // radians
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_CULL_FACE); // hide polygons that face away from the camera
 	glEnable(GL_DEPTH_TEST); // clip ploygons in the back of the scene
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT1);
 }
 
 /* Private */
@@ -118,8 +120,6 @@ static float const kCameraSpeed = 0.1; // radians
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
 	GLfloat position[]= { 0.0f, 5.0f, 2.0f, 1.0f };
 	glLightfv(GL_LIGHT1, GL_POSITION, position);
-	glEnable(GL_LIGHT1);
-	glEnable(GL_LIGHTING);
 }
 
 @end
