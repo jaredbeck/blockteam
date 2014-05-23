@@ -12,6 +12,7 @@
 #import "BTLog.h"
 #import "BTMaterial.h"
 #import "BTPlane.h"
+#import "BTPlayer.h"
 #import "BTPoint.h"
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
@@ -87,7 +88,9 @@ static float const kCameraSpeed = 0.1; // radians
 	glMatrixMode(GL_MODELVIEW);
 	[[[BTPlane alloc] initWithY: 0.0] draw];
 	[self drawCubes];
-	[self drawTriangle];
+	BTPoint* center = [[BTPoint alloc] initWithX: 1.0 Y: 0.5 Z: 0.0];
+	BTPlayer* player = [[BTPlayer alloc] initWithCenter: center];
+	[player draw];
 }
 
 - (void) moveCameraClockwise {
@@ -109,12 +112,12 @@ static float const kCameraSpeed = 0.1; // radians
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
-	GLfloat LightAmbient[]= { 0.5f, 0.5f, 0.5f, 1.0f };
-	glLightfv(GL_LIGHT1, GL_AMBIENT, LightAmbient);
-	GLfloat LightDiffuse[]= { 1.0f, 1.0f, 1.0f, 1.0f };
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, LightDiffuse);
-	GLfloat LightPosition[]= { 0.0f, 2.0f, 2.0f, 1.0f };
-	glLightfv(GL_LIGHT1, GL_POSITION, LightPosition);
+	GLfloat ambient[]= { 0.5f, 0.5f, 0.5f, 1.0f };
+	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
+	GLfloat diffuse[]= { 1.0f, 1.0f, 1.0f, 1.0f };
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
+	GLfloat position[]= { 0.0f, 5.0f, 2.0f, 1.0f };
+	glLightfv(GL_LIGHT1, GL_POSITION, position);
 	glEnable(GL_LIGHT1);
 	glEnable(GL_LIGHTING);
 }

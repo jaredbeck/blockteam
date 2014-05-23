@@ -14,6 +14,7 @@
 @property float y;
 @property float z;
 
-- (id)initWithX:(float)x Y:(float)y Z:(float)z;
+- (id) initWithX:(float)x Y:(float)y Z:(float)z;
+- (void) log;
 
 @end

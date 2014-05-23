@@ -22,4 +22,8 @@
     return self;
 }
 
+- (void) log {
+    NSLog(@"(%f, %f, %f)", self.x, self.y, self.z);
+}
+
 @end
