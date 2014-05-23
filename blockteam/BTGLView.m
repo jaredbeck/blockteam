@@ -86,8 +86,27 @@ static float const kCameraSpeed = 0.1; // radians
 	return [[BTPoint alloc] initWithX: x Y: kCameraElevation Z: z];
 }
 
+/* The GL_MODELVIEW matrix, as its name implies, should contain
+ modeling and viewing transformations, which transform object
+ space coordinates into eye space coordinates. Remember to place
+ the camera transformations on the GL_MODELVIEW matrix and never
+ on the GL_PROJECTION matrix.
+ http://www.opengl.org/archives/resources/faq/technical/viewing.htm
+ */
 - (void) modelview {
 	glMatrixMode(GL_MODELVIEW);
+
+	BTPoint* loc = [self getCameraPosition];
+	gluLookAt(loc.x, loc.y, loc.z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	glViewport(0, 0, (GLsizei) 400, (GLsizei) 400);
+
+	GLfloat ambient[]= { 0.5f, 0.5f, 0.5f, 1.0f };
+	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
+	GLfloat diffuse[]= { 1.0f, 1.0f, 1.0f, 1.0f };
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
+	GLfloat position[]= { 0.0f, 1.0f, 2.0f, 1.0f };
+	glLightfv(GL_LIGHT1, GL_POSITION, position);
+
 	[[[BTPlane alloc] initWithY: 0.0] draw];
 	[self drawCubes];
 	BTPoint* center = [[BTPoint alloc] initWithX: 1.0 Y: 0.5 Z: 0.0];
@@ -107,19 +126,16 @@ static float const kCameraSpeed = 0.1; // radians
 	[self setNeedsDisplay: YES];
 }
 
+/* The GL_PROJECTION matrix should contain only the projection
+ transformation calls it needs to transform eye space coordinates
+ into clip coordinates.
+ http://www.opengl.org/archives/resources/faq/technical/viewing.htm
+ */
 - (void) projection {
-	BTPoint* loc = [self getCameraPosition];
-	gluLookAt(loc.x, loc.y, loc.z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-	glViewport(0, 0, (GLsizei) 400, (GLsizei) 400);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glFrustum (-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
-	GLfloat ambient[]= { 0.5f, 0.5f, 0.5f, 1.0f };
-	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
-	GLfloat diffuse[]= { 1.0f, 1.0f, 1.0f, 1.0f };
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
-	GLfloat position[]= { 0.0f, 5.0f, 2.0f, 1.0f };
-	glLightfv(GL_LIGHT1, GL_POSITION, position);
+	// Frustum: Lft, Rgt, Bot, Top, Near, Far
+	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
 }
 
 @end
