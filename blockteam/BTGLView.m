@@ -104,7 +104,7 @@ static float const kCameraSpeed = 0.1; // radians
 	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
 	GLfloat diffuse[]= { 1.0f, 1.0f, 1.0f, 1.0f };
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
-	GLfloat position[]= { 0.0f, 1.0f, 2.0f, 1.0f };
+	GLfloat position[]= { 0.0f, 2.0f, 2.0f, 1.0f };
 	glLightfv(GL_LIGHT1, GL_POSITION, position);
 
 	[[[BTPlane alloc] initWithY: 0.0] draw];

@@ -35,39 +35,51 @@ static float const kLength = 1.0;
     glBegin(GL_QUADS);
     {
 
-        // Fr.  011 001 101 111 counter-clockwise
+        // Front 011 001 101 111 counter-clockwise
+        // Faces positive Z
+        glNormal3f(0, 0, 1);
         glVertex3f(p.x - r, p.y + r, p.z + r);
         glVertex3f(p.x - r, p.y - r, p.z + r);
         glVertex3f(p.x + r, p.y - r, p.z + r);
         glVertex3f(p.x + r, p.y + r, p.z + r);
 
-        // Bk.  010 110 100 000 clockwise
+        // Back 010 110 100 000 clockwise
+        // Faces negative Z
+        glNormal3f(0, 0, -1);
         glVertex3f(p.x - r, p.y + r, p.z - r);
         glVertex3f(p.x + r, p.y + r, p.z - r);
         glVertex3f(p.x + r, p.y - r, p.z - r);
         glVertex3f(p.x - r, p.y - r, p.z - r);
 
-        // Rgt  111 101 100 110 counter-clockwise
+        // Right 111 101 100 110 counter-clockwise
+        // Faces positive X
+        glNormal3f(1, 0, 0);
         glVertex3f(p.x + r, p.y + r, p.z + r);
         glVertex3f(p.x + r, p.y - r, p.z + r);
         glVertex3f(p.x + r, p.y - r, p.z - r);
         glVertex3f(p.x + r, p.y + r, p.z - r);
 
-        // Top  010 011 111 110 counter-clockwise
+        // Top 010 011 111 110 counter-clockwise
+        // Faces positive Y
+        glNormal3f(0, 1, 0);
         glVertex3f(p.x - r, p.y + r, p.z - r);
         glVertex3f(p.x - r, p.y + r, p.z + r);
         glVertex3f(p.x + r, p.y + r, p.z + r);
         glVertex3f(p.x + r, p.y + r, p.z - r);
 
-        // Lft  011 010 000 001 clockwise
+        // Left  011 010 000 001 clockwise
+        // Faces negative X
+        glNormal3f(-1, 0, 0);
         glVertex3f(p.x - r, p.y + r, p.z + r);
         glVertex3f(p.x - r, p.y + r, p.z - r);
         glVertex3f(p.x - r, p.y - r, p.z - r);
         glVertex3f(p.x - r, p.y - r, p.z + r);
 
         // Bot  000 100 101 001 clockwise
+        // Faces negative Y
         /* Draw the bottom, even though it may always face away from the
         camera, depending on the design of the game, TBD. */
+        glNormal3f(0, -1, 0);
         glVertex3f(p.x - r, p.y - r, p.z - r);
         glVertex3f(p.x + r, p.y - r, p.z - r);
         glVertex3f(p.x + r, p.y - r, p.z + r);
