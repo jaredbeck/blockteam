@@ -7,12 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "BTCamera.h"
 
 @interface BTGLView : NSOpenGLView
 
 {
     
 }
+
+@property BTCamera *camera;
 
 - (void) drawRect: (NSRect) bounds;
 - (void) keyUp: (NSEvent*) event;

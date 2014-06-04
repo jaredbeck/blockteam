@@ -8,6 +8,7 @@
 
 #import "BTGLView.h"
 
+#import "BTCamera.h"
 #import "BTCube.h"
 #import "BTLog.h"
 #import "BTMaterial.h"
@@ -17,13 +18,7 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 
-@implementation BTGLView {
-	float cameraRadians;
-}
-
-static float const kCameraElevation = 2.0;
-static float const kCameraRadius = 3.0;
-static float const kCameraSpeed = 0.1; // radians
+@implementation BTGLView
 
 /* Public */
 
@@ -44,14 +39,16 @@ static float const kCameraSpeed = 0.1; // radians
 - (void) keyDown:(NSEvent*)event {
 	NSString* chars = [event characters];
 	if ([chars isEqualToString: @"a"]) {
-		[self moveCameraClockwise];
+		[self.camera moveClockwise];
 	} else if ([chars isEqualToString: @"d"]) {
-		[self moveCameraCounterClockwise];
+		[self.camera moveCounterClockwise];
 	}
+	[self setNeedsDisplay: YES];
 }
 
 - (void) prepareOpenGL {
-	cameraRadians = 1.5 * M_PI;
+	BTCamera *camera = [[BTCamera alloc] initWithRadians: 1.5 * M_PI];
+	[self setCamera: camera];
 	glClearColor(0, 0, 0, 0);
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_CULL_FACE); // hide polygons that face away from the camera
@@ -80,12 +77,6 @@ static float const kCameraSpeed = 0.1; // radians
 	glEnd();
 }
 
-- (BTPoint*) getCameraPosition {
-	const float x = kCameraRadius * cosf(cameraRadians);
-	const float z = kCameraRadius * sinf(cameraRadians);
-	return [[BTPoint alloc] initWithX: x Y: kCameraElevation Z: z];
-}
-
 /* The GL_MODELVIEW matrix, as its name implies, should contain
  modeling and viewing transformations, which transform object
  space coordinates into eye space coordinates. Remember to place
@@ -96,7 +87,7 @@ static float const kCameraSpeed = 0.1; // radians
 - (void) modelview {
 	glMatrixMode(GL_MODELVIEW);
 
-	BTPoint* loc = [self getCameraPosition];
+	BTPoint* loc = [self.camera position];
 	gluLookAt(loc.x, loc.y, loc.z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 	glViewport(0, 0, (GLsizei) 400, (GLsizei) 400);
 
@@ -112,18 +103,6 @@ static float const kCameraSpeed = 0.1; // radians
 	BTPoint* center = [[BTPoint alloc] initWithX: 1.0 Y: 0.5 Z: 0.0];
 	BTPlayer* player = [[BTPlayer alloc] initWithCenter: center];
 	[player draw];
-}
-
-- (void) moveCameraClockwise {
-	cameraRadians -= kCameraSpeed;
-	if (cameraRadians < 0.0) { cameraRadians += 2 * M_PI; }
-	[self setNeedsDisplay: YES];
-}
-
-- (void) moveCameraCounterClockwise {
-	cameraRadians += kCameraSpeed;
-	if (cameraRadians > 2 * M_PI) { cameraRadians -= 2 * M_PI; }
-	[self setNeedsDisplay: YES];
 }
 
 /* The GL_PROJECTION matrix should contain only the projection
