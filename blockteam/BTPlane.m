@@ -29,6 +29,7 @@ static float const kLength = 9.0;
 
     glBegin(GL_QUADS);
     {
+        glNormal3f(0, 1, 0);
         glVertex3f(0.0 - r, self.y, 0.0 + r);
         glVertex3f(0.0 + r, self.y, 0.0 + r);
         glVertex3f(0.0 + r, self.y, 0.0 - r);
