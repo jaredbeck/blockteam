@@ -25,6 +25,7 @@
 - (BOOL) acceptsFirstResponder { return YES; }
 
 - (void) drawRect: (NSRect) bounds {
+	[BTLog logNSRect: bounds];
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	[self projection];
@@ -55,6 +56,33 @@
 	glEnable(GL_DEPTH_TEST); // clip ploygons in the back of the scene
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT1);
+}
+
+/* `reshape` - Called by Cocoa when the view's visible
+rectangle or bounds change. */
+- (void) reshape {
+	NSRect windowFrame = [[[self window] contentView] frame];
+	NSSize windowFrameSize = windowFrame.size;
+	float w = windowFrameSize.width;
+	float h = windowFrameSize.height;
+	NSLog(@"window reshape: (%f, %f)", w, h);
+
+    float x = [self frame].origin.x;
+    float y = [self frame].origin.y;
+	NSLog(@"frame origin (%.02f %.02f)", x, y);
+
+	self.viewportSize = windowFrameSize;
+	[self setFrameSize: windowFrameSize];
+	NSPoint origin = {0, 0};
+	[self setFrameOrigin: origin];
+
+	[self setNeedsDisplay: YES]; // necessary?
+}
+
+/* `update` - Called by Cocoa when the view’s window moves or
+when the view itself moves or is resized. */
+- (void) update {
+	NSLog(@"view update");
 }
 
 /* Private */
@@ -89,7 +117,10 @@
 
 	BTPoint* loc = [self.camera position];
 	gluLookAt(loc.x, loc.y, loc.z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-	glViewport(0, 0, (GLsizei) 400, (GLsizei) 400);
+	CGFloat vpSzW = self.viewportSize.width;
+	CGFloat vpSzH = self.viewportSize.height;
+	NSLog(@"set viewport size to (%f, %f)", vpSzW, vpSzH);
+	glViewport(0, 0, (GLsizei) vpSzW, (GLsizei) vpSzH);
 
 	GLfloat ambient[]= { 0.5f, 0.5f, 0.5f, 1.0f };
 	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
@@ -113,8 +144,20 @@
 - (void) projection {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+
+	/* The "world size" at the beginning is 2.0 "units" wide by
+	 2.0 high, centered on the origin, giving 1.0 "units" on each
+	 side of the origin.  As the viewport changes size, the world
+	 size should chnage proportionally. */
+	float worldWidth = self.viewportSize.width / 220.0;
+	float worldHeight = self.viewportSize.height / 220.0;
+
 	// Frustum: Lft, Rgt, Bot, Top, Near, Far
-	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+	float lft = -1 * worldWidth / 2;
+	float rgt = worldWidth / 2;
+	float bot = -1 * worldHeight / 2;
+	float top = worldHeight / 2;
+	glFrustum(lft, rgt, bot, top, 1.5, 20.0);
 }
 
 @end

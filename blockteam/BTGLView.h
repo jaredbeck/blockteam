@@ -11,14 +11,7 @@
 
 @interface BTGLView : NSOpenGLView
 
-{
-    
-}
-
 @property BTCamera *camera;
-
-- (void) drawRect: (NSRect) bounds;
-- (void) keyUp: (NSEvent*) event;
-- (void) keyDown: (NSEvent*) event;
+@property NSSize viewportSize;
 
 @end
